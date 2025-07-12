@@ -6,7 +6,6 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -36,8 +35,8 @@ public class JwtUtils {
 		return null;
 	}
 	
-	public String generateTokenFromUserName(UserDetails userDetails) {
-		String username=userDetails.getUsername();
+	public String generateTokenFromUserName(String username) {
+//		String username=userDetails.getUsername();
 		return Jwts.builder().setSubject(username).setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime()+jwtExpirationMs))
 				.signWith(key()).compact();
