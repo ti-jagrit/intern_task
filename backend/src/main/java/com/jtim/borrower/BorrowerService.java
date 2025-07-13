@@ -66,4 +66,7 @@ public class BorrowerService {
 		borrowerRepository.deleteById(id);
 		return new ApiResponse<>(200, "Borrower deleted", null);
 	}
+	
+
+
 }

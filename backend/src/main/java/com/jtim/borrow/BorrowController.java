@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jtim.borrower.BorrowResponseDto;
 import com.jtim.utils.ApiResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -22,17 +23,17 @@ public class BorrowController {
     private final BorrowService borrowService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Borrow>> borrowBooks(@RequestBody BorrowRequestDto dto) {
+    public ResponseEntity<ApiResponse<BorrowResponseDto>> borrowBooks(@RequestBody BorrowRequestDto dto) {
         return ResponseEntity.ok(borrowService.borrowBooks(dto));
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Borrow>>> getAllBorrows() {
+    public ResponseEntity<ApiResponse<List<BorrowResponseDto>>> getAllBorrows() {
         return ResponseEntity.ok(borrowService.getAllBorrows());
     }
 
     @GetMapping("/borrower/{id}")
-    public ResponseEntity<ApiResponse<List<Borrow>>> getBorrowsByBorrower(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<List<BorrowResponseDto>>> getBorrowsByBorrower(@PathVariable Long id) {
         return ResponseEntity.ok(borrowService.getBorrowsByBorrowerId(id));
     }
 }

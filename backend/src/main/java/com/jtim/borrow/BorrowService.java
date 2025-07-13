@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jtim.books.Book;
 import com.jtim.books.BookRepo;
+import com.jtim.borrower.BorrowResponseDto;
 import com.jtim.borrower.Borrower;
 import com.jtim.borrower.BorrowerRepository;
 import com.jtim.utils.ApiResponse;
@@ -21,12 +22,14 @@ public class BorrowService {
     private final BorrowerRepository borrowerRepository;
     private final BookRepo bookRepository;
 
-    public ApiResponse<Borrow> borrowBooks(BorrowRequestDto dto) {
+    public ApiResponse<BorrowResponseDto> borrowBooks(BorrowRequestDto dto) {
         Borrower borrower = borrowerRepository.findById(dto.getBorrowerId())
                 .orElseThrow(() -> new RuntimeException("Borrower not found"));
 
         List<Book> books = bookRepository.findAllById(dto.getBookIds());
-        if (books.isEmpty()) throw new RuntimeException("No books found for the given IDs");
+        if (books.isEmpty()) {
+            throw new RuntimeException("No books found for the given IDs");
+        }
 
         for (Book book : books) {
             if (book.getQuantity() <= 0) {
@@ -41,14 +44,42 @@ public class BorrowService {
         borrow.setBooks(books);
         borrow.setBorrowDate(LocalDate.now());
 
-        return new ApiResponse<>(201, "Books borrowed successfully", borrowRepository.save(borrow));
+        Borrow savedBorrow = borrowRepository.save(borrow);
+        return new ApiResponse<>(201, "Books borrowed successfully", toDto(savedBorrow));
     }
 
-    public ApiResponse<List<Borrow>> getAllBorrows() {
-        return new ApiResponse<>(200, "All borrow records", borrowRepository.findAll());
+
+    public ApiResponse<List<BorrowResponseDto>> getAllBorrows() {
+        List<Borrow> borrows = borrowRepository.findAll();
+        List<BorrowResponseDto> response = borrows.stream()
+                .map(this::toDto)
+                .toList();
+
+        return new ApiResponse<>(200, "All borrow records", response);
     }
 
-    public ApiResponse<List<Borrow>> getBorrowsByBorrowerId(Long borrowerId) {
-        return new ApiResponse<>(200, "Borrows for borrower", borrowRepository.findByBorrowerId(borrowerId));
+
+    public ApiResponse<List<BorrowResponseDto>> getBorrowsByBorrowerId(Long borrowerId) {
+        List<Borrow> borrows = borrowRepository.findByBorrowerId(borrowerId);
+        List<BorrowResponseDto> response = borrows.stream()
+                .map(this::toDto)
+                .toList();
+
+        return new ApiResponse<>(200, "Borrows for borrower", response);
     }
+
+	private BorrowResponseDto toDto(Borrow borrow) {
+	    List<BorrowResponseDto.BookInfo> bookInfos = borrow.getBooks().stream()
+	            .map(book -> new BorrowResponseDto.BookInfo( book.getId(), book.getBookName(), book.getAuthor()))
+	            .toList();
+
+	    return new BorrowResponseDto(
+	            borrow.getId(),
+	            borrow.getBorrowDate(),
+	            borrow.getBorrower().getId(),
+	            borrow.getBorrower().getBorrowerName(),
+	            borrow.getBorrower().getMobileNo(),
+	            bookInfos
+	    );
+	}
 }
