@@ -47,6 +47,10 @@ public class BorrowerService {
 	}
 
 	public ApiResponse<Borrower> saveBorrower(Borrower borrower) {
+<<<<<<< HEAD
+=======
+		borrower.setId(null);
+>>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
 		return new ApiResponse<>(201, "Borrower saved", borrowerRepository.save(borrower));
 	}
 
@@ -66,7 +70,10 @@ public class BorrowerService {
 		borrowerRepository.deleteById(id);
 		return new ApiResponse<>(200, "Borrower deleted", null);
 	}
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
 
 }

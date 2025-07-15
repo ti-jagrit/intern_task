@@ -47,7 +47,11 @@ import lombok.RequiredArgsConstructor;
 
 	    @PutMapping("/{id}")
 	    public ResponseEntity<ApiResponse<Book>> updateBook(@PathVariable Long id, @RequestBody Book book) throws Exception{
+<<<<<<< HEAD
 	        return ResponseEntity.ok(bookService.updateBook(id, book));
+=======
+	        return ResponseEntity.ok(bookService.updateBook(id,book));
+>>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
 	    }
 
 	    @DeleteMapping("/{id}")

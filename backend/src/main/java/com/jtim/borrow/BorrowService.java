@@ -43,6 +43,10 @@ public class BorrowService {
         borrow.setBorrower(borrower);
         borrow.setBooks(books);
         borrow.setBorrowDate(LocalDate.now());
+<<<<<<< HEAD
+=======
+        borrow.setId(null);
+>>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
 
         Borrow savedBorrow = borrowRepository.save(borrow);
         return new ApiResponse<>(201, "Books borrowed successfully", toDto(savedBorrow));
