@@ -24,25 +24,14 @@ public class AuthController {
 	private PasswordEncoder encoder;
 
 	@PostMapping("api/login")
-<<<<<<< HEAD
-	public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
-=======
 	public ResponseEntity<?> login(@RequestBody LoginRequest request) {
->>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
 		String password="$2a$10$/1DxZxs5DlkyrxhKGJoX6uhdZBR2DAG0nMExSr9GVEDRpbdiefjmG";
-		log.info("login Request recived {} ",request.getUsername());
+		log.info("login Request recived {} ",request);
 		if ("admin".equals(request.getUsername()) && encoder.matches(request.getPassword(),password)) {
 			String token = jwtUtils.generateTokenFromUserName(request.getUsername());
-<<<<<<< HEAD
-			LoginResponse response = new LoginResponse(token, "Login successful");
-			return ResponseEntity.ok(new ApiResponse<>(200, "Login successful", response));
-		} else {
-=======
-			log.info("login Successfull !");
 			return ResponseEntity.ok(new ApiResponse<>(200, "Login successful", token));
 		} else {
 			log.info(" Error in login!");
->>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 					.body(new ApiResponse<>(401, "Invalid username or password", null));
 		}

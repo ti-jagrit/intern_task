@@ -2,10 +2,6 @@ package com.jtim.books;
 
 import java.util.HashMap;
 import java.util.Map;
-<<<<<<< HEAD
-=======
-import java.util.UUID;
->>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -60,15 +56,10 @@ public class BookService {
     }
 
     public ApiResponse<Book> saveBook(Book book) {
-<<<<<<< HEAD
-    	log.info("Book Store method called");
 
-        return new ApiResponse<>(201, "Book saved", bookRepository.save(book));
-=======
     	log.info("Book Store method called {}",book);
     	book.setId(null);
     	        return new ApiResponse<>(201, "Book saved", bookRepository.save(book));
->>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
     }
 
     public ApiResponse<Book> updateBook(Long id, Book updated) {
@@ -79,11 +70,7 @@ public class BookService {
         book.setAuthor(updated.getAuthor());
         book.setPrice(updated.getPrice());
         book.setQuantity(updated.getQuantity());
-<<<<<<< HEAD
-        return new ApiResponse<>(200, "Book updated", bookRepository.save(book));
-=======
         return new ApiResponse<>(200, "Book updated", bookRepository.saveAndFlush(book));
->>>>>>> 1c30e4a (Reinitialized repo after .git folder removal)
     }
 
     public ApiResponse<Void> deleteBook(Long id) {
