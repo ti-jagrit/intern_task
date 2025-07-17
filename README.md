@@ -7,7 +7,7 @@ This **Book Borrowing App** is a Spring Boot-based application built using Sprin
 - **Borrower CRUD**: Allows users to manage borrower details such as name, address, contact information, etc.
 - **Borrowing Functionality**: Allows borrowers to borrow multiple books and track borrowing transactions.
   
-### Tools Uses:
+### Tools Used:
 - Java 21 (LTS)
 - Spring Boot
 - Mysql
