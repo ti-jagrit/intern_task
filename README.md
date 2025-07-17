@@ -1,12 +1,19 @@
 ## Project Overview
 
-This **Book Borrowing App** is a Spring Boot-based application built using **Java 21** and **Spring Security** for authentication and authorization. It provides CRUD operations for managing books and borrowers, along with the ability to record borrowing transactions. The system uses **JWT (JSON Web Token)** for secure authentication, ensuring that only authorized users can access the system.
+This **Book Borrowing App** is a Spring Boot-based application built using Spring boot for authentication and authorization. It provides CRUD operations for managing books and borrowers, along with the ability to record borrowing transactions. The system uses **JWT (JSON Web Token)** for secure authentication, ensuring that only authorized users can access the system.
 
 ### Features:
 - **Book CRUD**: Allows users to add, update, delete, and retrieve books.
 - **Borrower CRUD**: Allows users to manage borrower details such as name, address, contact information, etc.
 - **Borrowing Functionality**: Allows borrowers to borrow multiple books and track borrowing transactions.
-
+  
+###Tools Uses
+- Java 21 (LTS)
+- Spring Boot
+- Mysql
+- STS (IDE)
+- Spring Security
+  
 ### Authentication:
 - The system uses **JWT** tokens for authentication.
 - Login is done with the hardcoded credentials (`admin` / `admin`), and users can access the system and other endpoint  by sending their JWT tokens in the **Authorization** header of requests.
