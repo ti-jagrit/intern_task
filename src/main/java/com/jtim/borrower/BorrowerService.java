@@ -47,6 +47,7 @@ public class BorrowerService {
 	}
 
 	public ApiResponse<Borrower> saveBorrower(Borrower borrower) {
+		borrower.setId(null);
 
 		return new ApiResponse<>(201, "Borrower saved", borrowerRepository.save(borrower));
 	}

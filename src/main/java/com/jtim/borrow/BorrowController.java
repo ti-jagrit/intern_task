@@ -20,20 +20,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BorrowController {
 
-    private final BorrowService borrowService;
+	private final BorrowService borrowService;
 
-    @PostMapping
-    public ResponseEntity<ApiResponse<BorrowResponseDto>> borrowBooks(@RequestBody BorrowRequestDto dto) {
-        return ResponseEntity.ok(borrowService.borrowBooks(dto));
-    }
+	@PostMapping
+	public ResponseEntity<ApiResponse<?>> borrowBooks(@RequestBody BorrowRequestDto dto) {
+		ApiResponse<?> response = borrowService.borrowBooks(dto);
+		return ResponseEntity.status(response.getStatus()).body(response);
+	}
 
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<BorrowResponseDto>>> getAllBorrows() {
-        return ResponseEntity.ok(borrowService.getAllBorrows());
-    }
+	@GetMapping
+	public ResponseEntity<ApiResponse<List<BorrowResponseDto>>> getAllBorrows() {
+		ApiResponse<List<BorrowResponseDto>> response = borrowService.getAllBorrows();
+		return ResponseEntity.status(response.getStatus()).body(response);
+	}
 
-    @GetMapping("/borrower/{id}")
-    public ResponseEntity<ApiResponse<List<BorrowResponseDto>>> getBorrowsByBorrower(@PathVariable Long id) {
-        return ResponseEntity.ok(borrowService.getBorrowsByBorrowerId(id));
-    }
+	@GetMapping("/borrower/{id}")
+	public ResponseEntity<ApiResponse<List<BorrowResponseDto>>> getBorrowsByBorrower(@PathVariable Long id) {
+		return ResponseEntity.ok(borrowService.getBorrowsByBorrowerId(id));
+	}
 }
